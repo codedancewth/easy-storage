@@ -35,5 +35,15 @@ func (m *Mysql) InitMysql() *gorm.DB {
 
 	fmt.Println("Successfully connected to the database!")
 
+	s, err := db.DB()
+
+	if err != nil {
+		log.Fatalf("set sql conn err [%v]", err)
+	}
+	s.SetMaxOpenConns(10) // 设置最大打开连接数
+	s.SetMaxIdleConns(5)  // 设置最大空闲连接数
+
+	// 注意使用db.bug的方法，会导致日志的数据，影响系统的性能
+	//db = db.Debug()
 	return db
 }

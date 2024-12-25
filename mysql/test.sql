@@ -14,3 +14,8 @@ CREATE TABLE `user` (
 
 
 INSERT INTO `user` ( `user_name`, `user_account`, `user_password`, `status`, `created_time`, `updated_time`, `is_deleted` ) VALUES ( '吴天豪', 'wutianhao',  '123456',  1,  UNIX_TIMESTAMP(),  0,  0 );
+
+
+SHOW STATUS LIKE 'Threads_connected'; // 查看当前的连接数
+
+SHOW VARIABLES LIKE 'max_connections';// 查看最大链接数

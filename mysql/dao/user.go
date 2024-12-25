@@ -14,3 +14,10 @@ func GetUserList(db *gorm.DB) (err error, users []*models.User) {
 	}
 	return err, users
 }
+
+// SaveUser 存储用户的数据
+func SaveUser(db *gorm.DB, user *models.User) {
+	if err := db.Table((&models.User{}).Table()).Save(user).Error; err != nil {
+		log.Fatalf("save user error [%v]", err)
+	}
+}

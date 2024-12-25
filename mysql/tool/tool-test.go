@@ -1,8 +1,10 @@
 package tool
 
 import (
+	"fmt"
 	"gorm.io/gorm"
 	"log"
+	"time"
 )
 
 // 发现有些db的函数挺有趣的，收藏一下
@@ -19,7 +21,6 @@ func AutoMigrate(db *gorm.DB) {
 	//	UpdatedTime  int64  `gorm:"column:updated_time" json:"updated_time"`
 	//	IsDeleted    int8   `gorm:"column:is_deleted" json:"is_deleted"`
 	//}
-
 	type UserV2 struct {
 		ID           int    `gorm:"primaryKey;autoIncrement" json:"id"`
 		UserName     string `gorm:"size:128;not null;default:'';uniqueIndex" json:"user_name"`    // 用户姓名
@@ -39,4 +40,19 @@ func AutoMigrate(db *gorm.DB) {
 	}
 
 	log.Println("AutoMigrate successful!")
+}
+
+// GetMonthlyTableName 生成月表名
+func GetMonthlyTableName(baseTableName string) string {
+	now := time.Now()
+	return fmt.Sprintf("%s_%d_%02d", baseTableName, now.Year(), now.Month())
+}
+
+// EnsureMonthlyTable 检查表是否存在，如果不存在则创建
+func EnsureMonthlyTable(db *gorm.DB, model interface{}, tableName string) error {
+	if !db.Migrator().HasTable(tableName) {
+		log.Printf("Creating table: %s\n", tableName)
+		return db.Table(tableName).AutoMigrate(model)
+	}
+	return nil
 }
