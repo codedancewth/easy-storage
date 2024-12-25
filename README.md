@@ -1,2 +1,1 @@
-# easy-storage
-This project for easy-stroage method，include storage type of mysql, mongo, redis etc.  Many of type show to you .
+This project mainly explains how to use the Go language to implement data storage and usage gestures, including the design of some tools, convenient methods, and reference tools for daily work.
