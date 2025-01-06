@@ -12,7 +12,7 @@ import (
 // redis的通用工具
 
 type ReClient struct {
-	log *log.Logger
+	log *log.Logger // 建议改成标准的log日志
 	ctx context.Context
 	rc  *redis.Client
 }
